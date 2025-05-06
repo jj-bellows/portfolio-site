@@ -14,10 +14,10 @@ nav {
     position: fixed;
     z-index: 1;
     top: 0;
-    margin-top: 0px;
-    width: 100vw;
+    margin-top: 0;
+    width: 100%;
     opacity: 1;
-    transition: opacity 0.5s, top 0.3s;
+    transition: opacity 0.7s, top 0.7s;
 }
 
 .hidden {
@@ -43,18 +43,19 @@ nav ul {
 }
 
 .content {
-    padding-top: 43.333px;
+    position: absolute;
+    top: 0;
     justify-content: center;
     align-items: center;
     height: 100vh;
+    width: 100%;
     background-color: #fff;
-    transition: all 0.3s;
+    transition: all 0.6s;
 }
 
 .progress-bar{
     background-color: #d9dbdd;
-    padding: 0;
-    margin: 0;
+    padding-top: 40px;
     width: 20%;
     height: 100%;
     position: fixed;
@@ -84,6 +85,7 @@ nav ul {
     gap: 0;
     justify-content: center;
     margin: 0;
+    padding: 40px 25px;
 }
 
 

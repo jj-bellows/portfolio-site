@@ -349,14 +349,12 @@ addTimerButton.addEventListener('click', () => {createTimer()});
 window.addEventListener('mousemove', (e) => {
     if(!ticking) {
         window.requestAnimationFrame(() =>{
-            // Probably need to check if a dropdown is active too avoid problems
-            if(e.y < 20 && navHidden) {
+            // Probably need to check if a dropdown is active to avoid problems
+            if(e.y < 30 && navHidden) {
                 navbar.classList.remove('hidden');
-                content.style.paddingTop = '43.333px';
                 navHidden = false;
             } else if(e.y >= 100 && !navHidden){
                 navbar.classList.add('hidden');
-                content.style.paddingTop = '0px';
                 navHidden = true;
             }
         ticking = false;
