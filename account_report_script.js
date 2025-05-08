@@ -1,3 +1,7 @@
+const navbar = document.querySelector('nav');
+let ticking = false;
+let navHidden = false;
+
 // Variables For Time
 const date = new Date()
 date.setHours(0,0,0,0);
@@ -702,5 +706,22 @@ title.addEventListener('click', () => {
         yearDisplay();
     } else {
         window.alert('Not Developed Yet');
+    }
+});
+
+window.addEventListener('mousemove', (e) => {
+    if(!ticking) {
+        window.requestAnimationFrame(() =>{
+            // Probably need to check if a dropdown is active to avoid problems
+            if(e.y < 30 && navHidden) {
+                navbar.classList.remove('hidden');
+                navHidden = false;
+            } else if(e.y >= 100 && !navHidden){
+                navbar.classList.add('hidden');
+                navHidden = true;
+            }
+        ticking = false;
+        });
+        ticking = true;
     }
 });

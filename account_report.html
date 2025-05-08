@@ -5,31 +5,50 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Accountability Report</title>
-        <link rel="stylesheet" href="account_report_style.css?v=20250506162005">
+        <link rel="stylesheet" href="account_report_style.css?v=20250508092814">
     </head>
     <body>
-        <div class="calendar">
-            <div class="header">
-                <button class="controls backward" id="backward">🢐</button>
-                <button class="title"></button>
-                <button class="controls forward" id="forward">🢒</button>
-            </div>
-            <div class="body"></div>
-        </div>
-        <div class="report-container">
-            <div class="daily report">
-                <div class="header simple"></div>
+        <nav class="top">
+            <div class="dropdownBackground"></div>
+            <ul class="nav-bar">
+                <li>
+                    <a href="index.html">Home</a>
+                </li>
+                <li>
+                    <a href="about.html">About Me</a>
+                </li>
+                <li>
+                    <a href="coding.html">Coding</a>
+                </li>
+                <li>
+                    <a href="writing.html">Writing</a>
+                </li>
+            </ul>
+        </nav>
+        <content>
+            <div class="calendar">
+                <div class="header">
+                    <button class="controls backward" id="backward">🢐</button>
+                    <button class="title"></button>
+                    <button class="controls forward" id="forward">🢒</button>
+                </div>
                 <div class="body"></div>
-                <div class="footer">
-                    <button class="edit save"></button>
+            </div>
+            <div class="report-container">
+                <div class="daily report">
+                    <div class="header simple"></div>
+                    <div class="body"></div>
+                    <div class="footer">
+                        <button class="edit save"></button>
+                    </div>
+                </div>
+                <div class="weekly report">
+                    <div class="header simple"></div>
+                    <div class="body"></div>
+                    <div class="footer"></div>
                 </div>
             </div>
-            <div class="weekly report">
-                <div class="header simple"></div>
-                <div class="body"></div>
-                <div class="footer"></div>
-            </div>
-        </div>
-    <script src="account_report_script.js?v=20250506162005"></script>
+        </content>
+    <script src="account_report_script.js?v=20250508092814"></script>
     </body>
 </html>

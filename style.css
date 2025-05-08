@@ -41,7 +41,8 @@ nav {
     position: sticky;
     top: 0;
     margin-top: 0px;
-    width: 100vw;
+    width: 100%;
+    z-index: 10;
 }
 
 .nav-bar > li > a {
@@ -56,11 +57,19 @@ nav ul {
     display: flex;
     margin: 0;
     padding: 0;
-    justify-content: left;
+    justify-content: center;
     background: #13082c;
 }
 
-.content{
-    padding: 20px;
-    margin-top: 20px;
+main{
+    position: relative;
+    width: 100%;
+    display: grid;
+    place-items: center;
+}
+
+section {
+    width: 80%;
+    max-width: 900px;
+    min-width: 700px;
 }
