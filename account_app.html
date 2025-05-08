@@ -5,7 +5,8 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Accountability App</title>
-        <link rel="stylesheet" href="account_app.css?v=20250508092814">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/simplebar@5.3.0/dist/simplebar.min.css?v=20250508155309">
+        <link rel="stylesheet" href="account_app.css?v=20250508155309">
     </head>
     <body>
         <nav class="top">
@@ -33,12 +34,15 @@
 
                 <p>Unstructured Time:</p>
                 <p class="unaccounted">00:00:00 </p>
-                <div class="activity-report"></div>
+                <div class="activity-report-container">
+                    <div class="activity-report" data-simplebar></div>
+                </div>
             </div>
             <div class="timers-container">
                 <button class="add-timer" id="add-timer">+</button>
             </div>
         </content>
-        <script src="account_app.js?v=20250508092814"></script>
+        <script src="https://cdn.jsdelivr.net/npm/simplebar@5.3.0/dist/simplebar.min.js?v=20250508155309"></script>
+        <script src="account_app.js?v=20250508155309"></script>
     </body>
 </html>

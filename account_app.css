@@ -60,7 +60,7 @@ content {
     height: 100%;
     position: fixed;
     justify-content: center;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    box-shadow: 0.5px 4px 8px rgba(0, 0, 0, 0.2);
     text-align: center;
 }
 
@@ -76,6 +76,41 @@ content {
     padding: 0;
 }
 
+.activity-report-container {
+    position: relative;
+    max-height: 30vh;
+    margin: 15px 10%;
+    border-radius: 10px;
+    box-shadow: 0.5px 4px 8px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+}
+
+.activity-report {
+    width: 100%;
+    max-height: 30vh;
+}
+
+.simplebar-content-wrapper {
+    border-radius: 10px;
+}
+
+.simplebar-content * {
+    width: 100%;
+    padding: 5px;
+    margin: 0;
+}
+
+.simplebar-track {
+    background: transparent;
+    width: 6px;
+}
+  
+.simplebar-scrollbar {
+    background: #d9dbdd;
+    width: 4px;
+    height: 50px;
+    border-radius:2px;
+}
 
 .timers-container {
     justify-self: right;

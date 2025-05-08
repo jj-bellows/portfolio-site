@@ -2,6 +2,7 @@
 
 const navbar = document.querySelector('nav')
 const content = document.querySelector('.content');
+const leaderboard = document.querySelector('.activity-report');
 const timersContainer = document.querySelector('.timers-container');
 const addTimerButton = document.getElementById('add-timer');
 const colors = ['#FBAD58', '#EC81AD', '#B2323F', '#1BA0F2',
@@ -9,6 +10,8 @@ const colors = ['#FBAD58', '#EC81AD', '#B2323F', '#1BA0F2',
     '#D2EDFF','#FFC311','#115B98','#8D94DA','#275650'];
 let ticking = false;
 let navHidden = false;
+let previousList = [];
+let previousUnaccountedTime = 0;
 let activeTimer = null;
 let colorIndex = 0;
 let day = new Date().setHours(0,0,0,0);
@@ -119,13 +122,17 @@ function update() {
     //Creating Leaderboard
     activities.sort((a,b) => b.time - a.time);
 
-    const leaderboard = document.querySelector('.activity-report');
+    if(hasChanged(activities)) {
+        const activityList = leaderboard.querySelector('.simplebar-content');
     
-    let text = ""
-    activities.forEach(activity => {
-        text += `<p style="background-color:${activity.color};"> ${activity.name} </p>`;
-    });
-    leaderboard.innerHTML = text;
+        let text = "";
+        activities.forEach(activity => {
+            text += `<p style="background-color:${activity.color};"> ${activity.name} </p>`;
+        });
+        activityList.innerHTML = text;
+
+        previousList = JSON.parse(JSON.stringify(activities));
+    }
 
     //Updating CSS of Chart
     document.documentElement.style.setProperty (`--colors`, updateCSS);
@@ -137,8 +144,27 @@ function update() {
     const unaccSec = String(unaccountedTime % 60).padStart(2,'0');
     
     //Update HTML with new times
-    const unaccountedTimeUpdate = document.querySelector('.unaccounted');
-    unaccountedTimeUpdate.innerHTML = `${unaccHour}:${unaccMin}:${unaccSec}`;
+    if (previousUnaccountedTime != unaccountedTime) {
+        const unaccountedTimeUpdate = document.querySelector('.unaccounted');
+        unaccountedTimeUpdate.innerHTML = `${unaccHour}:${unaccMin}:${unaccSec}`;
+
+        previousUnaccountedTime = unaccountedTime;
+    }
+    
+}
+
+function hasChanged(currentList) {
+    if (previousList.length !== currentList.length) {
+        return true;
+    }
+
+    for(let i = 0; i < currentList.length; i++) {
+        if(currentList[i].color !== previousList[i].color || currentList[i].name !== previousList[i].name) {
+            return true;
+        }
+    }
+
+    return false;
 }
 
 function updateTimer(timer, now) {
@@ -334,11 +360,16 @@ if (backup != null) {
     createTimer();
 }
 
+// Initialize simplebar for activity report
+new SimpleBar(leaderboard, {
+    autoHide: true,
+});
+
 //Update Page every Second
 setInterval(update, 1000);
 
-//Backup Page every Minute
-setInterval(() => {createBackup(day)}, 60000);
+//Backup Page every 30 Seconds
+setInterval(() => {createBackup(day)}, 30000);
 
 
 //Add functionality to "Add Timer" Button
@@ -362,4 +393,3 @@ window.addEventListener('mousemove', (e) => {
         ticking = true;
     }
 });
-
