@@ -12,7 +12,7 @@
 
 nav {
     position: fixed;
-    z-index: 1;
+    z-index: 10;
     top: 0;
     margin-top: 0;
     width: 100%;
@@ -45,8 +45,6 @@ nav ul {
 content {
     position: absolute;
     top: 0;
-    justify-content: center;
-    align-items: center;
     height: 100vh;
     width: 100%;
     background-color: #fff;
@@ -59,7 +57,7 @@ content {
     width: 20%;
     height: 100%;
     position: fixed;
-    justify-content: center;
+    z-index: 8;
     box-shadow: 0.5px 4px 8px rgba(0, 0, 0, 0.2);
     text-align: center;
 }
@@ -114,13 +112,13 @@ content {
 
 .timers-container {
     justify-self: right;
-    width: 80%;
+    width: 100%;
     display: flex;
     flex-wrap: wrap;
     gap: 0;
     justify-content: center;
     margin: 0;
-    padding: 40px 25px;
+    padding: 40px 25px 40px 20%;
 }
 
 
@@ -234,18 +232,28 @@ input::-webkit-inner-spin-button {
     background-color: #d9dbdd;
     color: #6f7174;
     padding: 20px 40px;
+    margin: 10px;
+    border: none;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     width: 200px;
     height: 183px;
     text-align: center;
     position: relative;
-    border: none;
+    flex-shrink: 0;
     font-size: 2em;
     font-style:oblique;
-    margin: 10px;
 }
 
 .add-timer:hover {
     background-color: #c1c5cc;
+}
+
+@media screen and (max-width: 900px) {
+    .progress-bar {
+        left: -200px;
+    }
+    .timers-container {
+        padding: 40px 25px;
+    }
 }
