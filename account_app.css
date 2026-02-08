@@ -186,7 +186,6 @@ input::-webkit-inner-spin-button {
     border-radius: 50%;
     cursor: pointer;
     width: 25px;
-    height: 25px;
     font-size: 1.2em;
     display: flex;
     align-items: center;

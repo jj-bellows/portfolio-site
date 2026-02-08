@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Happy Birthday</title>
+    </head>
+    <body>
+        <div class="flex">
+            <div class="cardFront">
+                <h1>Happy Birthday!</h1>
+            </div>
+            <div class="cardInside hidden">
+                <button>Click me!</button>
+                <p>Happy Birthday Dad! I tried to make you a program to run, but it only works on windows...anyways I hope you have a wonderful birthday! -Thomas</p>
+            </div>
+            <div class="cardBack hidden">
+                <p>(^_^)</p>
+                <p>Online Card designed by Jacob</p>
+                <p>P.S. Happy Birthday!</p>
+            </div>
+        </div>
+        
+        <audio src="bday2.mp3"></audio>
+
+        <script>
+            function playMusic() {
+                const audio = document.querySelector("audio");
+                audio.currentTime = 0;
+                audio.play();
+            }
+
+            function rotate(e) {
+                let active = e.target;
+                if (active.nodeName =="BUTTON") {
+                    return;
+                } else if (active.nodeName != "DIV") {
+                    active = active.parentElement;
+                }
+                active.classList.add("hidden");
+                if (active.classList.contains("cardBack")){
+                    active.parentElement.firstElementChild.classList.remove("hidden");
+                } else {
+                    active.nextElementSibling.classList.remove("hidden");
+                }
+            }
+
+            const button = document.querySelector("button");
+            const card = document.querySelector(".flex");
+            button.addEventListener("click", playMusic);
+            card.addEventListener("click", (e) => rotate(e))
+        </script>
+
+        <style>
+            body {
+                background-color: white;
+                font-family:Verdana, Tahoma, sans-serif;
+            }
+
+            button {
+                background-color: rgb(143, 140, 148);
+                border: none;
+                border-radius: 15px;
+                margin:0.67rem 40%;
+                padding: 5px;
+            }
+
+            button:hover {
+                background-color: rgb(97, 95, 101)
+            }
+
+            div {
+                height: 30vw;
+                justify-items: center;
+                padding: 1vw;
+                width: 30vw;
+            }
+
+            h1 {
+                font-family: 'Brush Script MT';
+                font-size: 3.5rem;
+                padding: 5px;
+            }
+
+            .flex {
+                display: inline-flex;
+                margin: 5vw 0vw 0vw 35vw;
+            }
+
+            .cardFront, .cardInside, .cardBack {
+                background-color:rgb(241, 233, 210);
+                border: solid rgb(148, 148, 126);
+                border-radius: 5px;
+            }
+
+            .cardBack {
+                display: grid;
+                grid-template: 70% 15% 15% / auto;
+            }
+
+            .hidden {
+                display: none;
+            }
+
+            @media only screen and (max-width: 700px) {
+
+                div {
+                    height: 80vw;
+                    width: 80vw;
+                }
+
+                .flex {
+                    display: inline-flex;
+                    margin: 0vw 5vw;
+                }
+            }
+        </style>
+    </body>
+</html>
