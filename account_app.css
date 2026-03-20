@@ -163,6 +163,25 @@ input::-webkit-inner-spin-button {
     border-bottom: 1px solid #007bff;
 }
 
+.timer-input + span + input + span + input + span {
+    display:none;
+    font-weight: bold;
+}
+
+.decimal-format input.timer-input {
+    width: 36px;
+}
+
+.decimal-format input.timer-input + span + input,
+.decimal-format input.timer-input + span + input + span + input,
+.decimal-format .colon {
+    display: none;
+}
+
+.decimal-format input.timer-input + span + input + span + input + span {
+    display: inline;
+}
+
 .timer-name {
     border: none;
     font-size: 1.2em;
@@ -246,6 +265,38 @@ input::-webkit-inner-spin-button {
 
 .add-timer:hover {
     background-color: #c1c5cc;
+}
+
+.settings {
+    background-color: #d9dbdd;
+    border: none;
+    border-radius:50%;
+    bottom:5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    color: #6f7174;
+    font-size:2em;
+    margin:10px;
+    position:fixed;
+    right:5px;
+    width: 45px;
+}
+
+.settings:hover {
+    background-color: #c1c5cc;
+}
+
+.settings-popup {
+    background-color:#d9dbdd;
+    border-radius:10px;
+    bottom:5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    display:none;
+    height:50%;
+    margin:10px;
+    right:75px;
+    padding:10px;
+    position:fixed;
+    width:225px;
 }
 
 @media screen and (max-width: 900px) {

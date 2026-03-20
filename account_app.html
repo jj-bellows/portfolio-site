@@ -6,8 +6,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Accountability App</title>
         <link rel="icon" href="https://fav.farm/⏱%EF%B8%8F" />
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/simplebar@5.3.0/dist/simplebar.min.css?v=20260207223738">
-        <link rel="stylesheet" href="account_app.css?v=20260207223738">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/simplebar@5.3.0/dist/simplebar.min.css?v=20260319225341">
+        <link rel="stylesheet" href="account_app.css?v=20260319225341">
     </head>
     <body>
         <nav class="top">
@@ -42,8 +42,19 @@
             <div class="timers-container">
                 <button class="add-timer" id="add-timer">+</button>
             </div>
+            <button class="settings" onClick="toggleSettings()" >⏣</button>
+            <div class="settings-popup">
+                <p>Time Display</p>
+                <form>
+                    <input type="radio" id="HMS" name="time" value="1" checked>
+                    <label for="HMS">HH:MM:SS</label>
+                    <br>
+                    <input type="radio" id="Decimal" name="time" value="0">
+                    <label for="Decimal">Decimal Hours</label>
+                </form>
+            </div>
         </content>
-        <script src="https://cdn.jsdelivr.net/npm/simplebar@5.3.0/dist/simplebar.min.js?v=20260207223738"></script>
-        <script src="account_app.js?v=20260207223738"></script>
+        <script src="https://cdn.jsdelivr.net/npm/simplebar@5.3.0/dist/simplebar.min.js?v=20260319225341"></script>
+        <script src="account_app.js?v=20260319225341"></script>
     </body>
 </html>

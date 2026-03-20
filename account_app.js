@@ -2,6 +2,8 @@
 
 const navbar = document.querySelector('nav')
 const content = document.querySelector('.content');
+const settingsPopUp = document.querySelector('.settings-popup');
+const settingsForm = document.querySelector('form');
 const leaderboard = document.querySelector('.activity-report');
 const timersContainer = document.querySelector('.timers-container');
 const addTimerButton = document.getElementById('add-timer');
@@ -10,8 +12,10 @@ const colors = ['#FBAD58', '#EC81AD', '#B2323F', '#1BA0F2',
     '#D2EDFF','#FFC311','#115B98','#8D94DA','#275650'];
 let ticking = false;
 let navHidden = false;
+let settingsVisible = false;
+let timeDisplay = 1;
 let previousList = [];
-let previousUnaccountedTime = 0;
+let previousUnaccountedTimeString = "0";
 let activeTimer = null;
 let colorIndex = 0;
 let day = new Date().setHours(0,0,0,0);
@@ -65,6 +69,32 @@ function checkDate(nowMs, date) {
             activeTimer.lastElementChild.lastElementChild.disabled = false;
         }
     };
+}
+
+function formatTime(inputTime) {
+    if(timeDisplay == 1) {
+        const hour = String(Math.floor(inputTime / 3600)).padStart(2, '0');
+        const min = String(Math.floor((inputTime % 3600) / 60)).padStart(2, '0');
+        const sec = String(Math.floor(inputTime % 60)).padStart(2,'0');
+        return `${hour}:${min}:${sec}`;
+    } else {
+        let decimalHour = Math.floor(inputTime/360)/10;
+        return `${decimalHour.toFixed(1)} Hours`;
+    }
+}
+
+function displayTime(inputTime, inputs) {
+    if(timeDisplay == 1) {
+        const hour = inputTime.slice(0,2);
+        const min = inputTime.slice(3,5);
+        const sec = inputTime.slice(6);
+        [inputs[0].value, inputs[1].value, inputs[2].value] = [hour, min, sec];
+        inputs[0].parentElement.classList.remove('decimal-format');    
+    } else {
+        const hour = inputTime.slice(0,-6);
+        [inputs[0].value, inputs[1].value, inputs[2].value] = [hour, 0, 0];
+        inputs[0].parentElement.classList.add('decimal-format');
+    }
 }
 
 function rgb2hex(string) {
@@ -139,16 +169,13 @@ function update() {
 
     //Finding Unaccounted Time
     const unaccountedTime = Math.round((nowMs-day-msPassed)/1000);
-    const unaccHour = String(Math.floor(unaccountedTime / 3600)).padStart(2, '0');
-    const unaccMin = String(Math.floor((unaccountedTime % 3600) / 60)).padStart(2, '0');
-    const unaccSec = String(unaccountedTime % 60).padStart(2,'0');
+    const unaccountedTimeString = formatTime(unaccountedTime);
     
     //Update HTML with new times
-    if (previousUnaccountedTime != unaccountedTime) {
+    if (previousUnaccountedTimeString != unaccountedTimeString) {
         const unaccountedTimeUpdate = document.querySelector('.unaccounted');
-        unaccountedTimeUpdate.innerHTML = `${unaccHour}:${unaccMin}:${unaccSec}`;
-
-        previousUnaccountedTime = unaccountedTime;
+        unaccountedTimeUpdate.innerHTML = unaccountedTimeString;
+        previousUnaccountedTimeString = unaccountedTimeString;
     }
     
 }
@@ -170,10 +197,8 @@ function hasChanged(currentList) {
 function updateTimer(timer, now) {
     timer.elapsedTime = now - timer.timeStamp + timer.previousTime;
     const totalSeconds = Math.round(timer.elapsedTime/1000);
-    const hours = String(Math.floor(totalSeconds/3600)).padStart(2,'0');
-    const minutes = String(Math.floor((totalSeconds % 3600)/ 60)).padStart(2,'0');
-    const seconds = String(totalSeconds % 60).padStart(2, '0');
-    [timer.inputs[0].value, timer.inputs[1].value, timer.inputs[2].value] = [hours, minutes, seconds];
+    const formattedTime = formatTime(totalSeconds);
+    displayTime(formattedTime, timer.inputs);
 }
 
 function createBackup(date) {
@@ -218,9 +243,14 @@ function createTimer(name = "Activity", time =  0, color = null) {
             <button class="delete-timer">×</button>
         </div>
         <div>
-            <p><input type="number" class="timer-input" id ="hr${colorIndex}" placeholder="00">:
-            <input type="number" class="timer-input" id ="min${colorIndex}" placeholder="00">:
-            <input type="number" class="timer-input" id ="sec${colorIndex}" placeholder="00"></p>
+            <p>
+                <input type="number" class="timer-input" id ="hr${colorIndex}" placeholder="00">
+                <span class="colon">:</span>
+                <input type="number" class="timer-input" id ="min${colorIndex}" placeholder="00">
+                <span class="colon">:</span>
+                <input type="number" class="timer-input" id ="sec${colorIndex}" placeholder="00">
+                <span>Hours</span>
+            </p>
         </div>
         <div class="controls">
             <button class="start-button">Start</button>
@@ -240,10 +270,8 @@ function createTimer(name = "Activity", time =  0, color = null) {
     timerDiv.inputs = timerDiv.querySelectorAll('.timer-input');
     timerDiv.elapsedTime = time;
     if (time > 0) {
-        const hr = String(Math.floor(time/3600000)).padStart(2,"0");
-        const min = String(Math.floor(time/60000) % 60).padStart(2,"0");
-        const sec = String(Math.floor(time/1000) % 60).padStart(2,"0");
-        [inputs[0].value, inputs[1].value, inputs[2].value] = [hr, min, sec];
+        const formattedTime = formatTime(time/1000);
+        displayTime(formattedTime, timerDiv.inputs);
     }
     timerDiv.isRunning = false;
 
@@ -253,37 +281,22 @@ function createTimer(name = "Activity", time =  0, color = null) {
 
         elapsedTimers.forEach(timer => accountedTime += timer.elapsedTime);
 
-        let inputHr = parseInt(inputs[0].value) || 0;
-        let inputMin = parseInt(inputs[1].value) || 0;
-        let inputSec = parseInt(inputs[2].value) || 0;
+        let inputHr = inputs[0].value > 0 ? Number(inputs[0].value) : 0;
+        let inputMin = inputs[1].value > 0 ? Number(inputs[1].value) : 0;
+        let inputSec = inputs[2].value > 0 ? Number(inputs[2].value) : 0;
+        let totalInput = (inputHr*3600 + inputMin * 60 + inputSec);
 
         const now = new Date();
         const nowMs = Date.parse(now);
-
         const totalTime = nowMs-day;
 
-        if (Math.floor(inputMin/60) >= 1 || Math.floor(inputSec/60) >= 1) {
-            const overHr = (inputHr + Math.floor(inputMin/60) + Math.floor(inputSec/3600));
-            const overMin = (inputMin + Math.floor(inputSec/60)) % 60;
-            const overSec = inputSec % 60;
-            [inputHr, inputMin, inputSec] = [overHr, overMin, overSec];
-        };
-
-        let totalInput = (inputHr*3600 + inputMin * 60 + inputSec) * 1000;
-
-        if (totalInput + accountedTime - timerDiv.elapsedTime > totalTime) {
-            totalInput = totalTime - accountedTime + timerDiv.elapsedTime;
-            const totalSeconds = Math.floor(totalInput / 1000);
-            inputSec = totalSeconds % 60;
-            inputMin = Math.floor((totalSeconds - inputSec) / 60) % 60;
-            inputHr = Math.floor((totalSeconds - inputSec - (inputMin * 60))/3600); 
+        if (totalInput * 1000 + accountedTime - timerDiv.elapsedTime > totalTime) {
+            totalInput = Math.floor((totalTime - accountedTime + timerDiv.elapsedTime)/1000); 
         }
 
-        inputHr = String(Math.max(0, Math.min(23, inputHr))).padStart(2,"0");
-        inputMin = String(Math.max(0, Math.min(59, inputMin))).padStart(2,"0");
-        inputSec = String(Math.max(0, Math.min(59, inputSec))).padStart(2,"0");
-        [inputs[0].value, inputs[1].value, inputs[2].value] = [inputHr, inputMin, inputSec];
-        timerDiv.elapsedTime = totalInput;
+        const formattedTime = formatTime(totalInput);
+        displayTime(formattedTime, timerDiv.inputs);
+        timerDiv.elapsedTime = totalInput * 1000;
     };
 
     function isEnter(e, input) {
@@ -338,12 +351,27 @@ function createTimer(name = "Activity", time =  0, color = null) {
 
     startButton.disabled = false;
     pauseButton.disabled = true;
-    
+
+    if(timeDisplay == 1) {
+        inputs[0].parentElement.classList.remove('decimal-format');
+    } else {
+        inputs[0].parentElement.classList.add('decimal-format');
+    }
+}
+
+function toggleSettings() {
+    if (settingsVisible) {
+        settingsPopUp.style.display = "none"
+        settingsVisible = false;
+    } else {
+        settingsPopUp.style.display = "inline";
+        settingsVisible = true;
+    }
 }
 
 const backup = versionLoader(day);
 
-//Page Reloader
+//On Page Load
 if (backup != null) {
     backup.forEach(timer => {
         createTimer(timer.name, timer.time, timer.color);
@@ -376,7 +404,6 @@ setInterval(() => {createBackup(day)}, 30000);
 addTimerButton.addEventListener('click', () => {createTimer()});
 
 // Hide Navbar when working in the app
-
 window.addEventListener('mousemove', (e) => {
     if(!ticking) {
         window.requestAnimationFrame(() =>{
@@ -392,4 +419,18 @@ window.addEventListener('mousemove', (e) => {
         });
         ticking = true;
     }
+});
+
+//Settings Functionality
+settingsForm.addEventListener("input", (e) => {
+    timeDisplay = e.target.value;
+    timersContainer.childNodes.forEach(child => {
+        if(child.nodeName == "DIV") {
+            if(child != activeTimer) {
+                const formattedTime = formatTime(child.elapsedTime/1000);
+                displayTime(formattedTime, child.inputs);
+            }
+        };
+    });
+    update();
 });
