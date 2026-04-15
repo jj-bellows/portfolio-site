@@ -686,6 +686,7 @@ dailyReport.addEventListener('change', (e) => {
 
 //Calendar Functionality
 calendarBody.addEventListener('wheel', (e) => {
+    e.preventDefault();
     if(e.deltaY > 0) {
         shift(1);
     } else if(e.deltaY < 0) {

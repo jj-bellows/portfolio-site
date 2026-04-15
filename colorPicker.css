@@ -1,0 +1,173 @@
+:root {
+    --base: hsl(180, 50%, 50%);
+    --lightness: linear-gradient(to right, hsl(180,100%,0%), hsl(180,100%,50%), hsl(180,100%,100%));
+    --saturation: linear-gradient(to right, hsl(180,0%,50%), hsl(180,100%,50%));
+}
+
+.color-scheme-editor {
+    background-color: #d9dbdd;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.25);
+    display: flex;
+    height: 275px;
+    margin: 15px;
+    width: 350px;
+}
+
+.color-scheme-container {
+    border-radius: 10px;
+    /* box-shadow: 0 2px 4px rgba(0,0,0,0.25); */
+    height: 244px;
+    margin: 15px;
+    overflow: hidden;
+    width: 150px;
+}
+
+.color-scheme {
+    width: 100%;
+    max-height: 244px;
+}
+
+.color-picker {
+    background-color: #d9dbdd;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.25);
+    margin: 15px;
+    overflow: clip;
+    text-align: center;
+    width: 150px;
+}
+
+.color-picker:has(.select-color:hover) {
+    background-color: #c1c5cc;
+}
+
+.color-options {
+    display: grid;
+    gap: 5%;
+    grid-template:
+    "a b" 45%
+    "c b" 45%;
+    margin: 15px;
+    width: 150px;
+}
+
+.color-options button {
+    background-color: #d9dbdd;
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.25);
+    cursor: pointer;
+    padding: 8px;
+    text-align: center;
+}
+
+.color-options button:hover {
+    background-color: #c1c5cc;
+}
+
+.clear-color-scheme {
+    grid-area: a;
+}
+
+.save-color-scheme {
+    grid-area: b;
+}
+
+.cancel-edits {
+    grid-area: c;
+}
+
+.slider {
+    -webkit-appearance: none;
+    appearance: none;
+    background: #d3d3d3;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.25);
+    height: 7.5px;
+    margin: 2.5px;
+    outline: none;
+}
+
+.slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    background: var(--base);
+    border: solid #6f7174 1px;
+    border-radius:50%;
+    cursor: pointer;
+    width: 12px;
+    height: 12px;
+}
+
+.slider::-moz-range-thumb {
+    background: var(--base);
+    border: solid #6f7174 1px;
+    border-radius:50%;
+    cursor: pointer;
+    height: 12px;
+    width: 12px;
+}
+
+.swatch {
+    background: var(--base);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.25);
+    height:60px;
+    width:100%;
+}
+
+.delete-swatch {
+    background: #dc3545;
+    border: none;
+    border-radius: 50%;
+    color: #83202a;
+    cursor: pointer;
+    font-size: 1.2em;
+    left: 90px;
+    padding: 0px;
+    position:relative;
+    top: 2px;
+    width: 20px;
+}
+
+.delete-swatch:hover {
+    background: #c51527;
+}
+
+.saturation {
+    background: var(--saturation);
+}
+
+.lightness {
+    background: var(--lightness);
+}
+
+.hue {
+    background: linear-gradient(to right, hsl(0,100%,50%), hsl(90,100%,50%), hsl(180,100%,50%), hsl(270,100%,50%), hsl(360,100%,50%));
+}
+
+.select-color {
+    background-color: #d9dbdd;
+    border: none;
+    border-radius: 0px 0px 10px 10px;
+    cursor: pointer;
+    padding: 8px;
+    text-align: center;
+    width: 100%;
+}
+
+.select-color:hover{ 
+    background-color: #c1c5cc;
+}
+
+@media screen and (max-width: 385px) {
+    .color-scheme-editor {
+        display: block;
+        height: auto;
+        width: auto;
+    }
+
+    .color-scheme-container {
+        height: 100px;
+    }
+}

@@ -20,9 +20,13 @@ nav {
     transition: opacity 0.7s, top 0.7s;
 }
 
-.hidden {
+nav.hidden {
     top: -20px;
     opacity: 0;
+}
+
+.settings-popup.hidden {
+    display: none;
 }
 
 .nav-bar > li > a {
@@ -267,13 +271,22 @@ input::-webkit-inner-spin-button {
     background-color: #c1c5cc;
 }
 
-.settings {
+.settings-container {
+    bottom: 0px;
+    display: flex;
+    height: auto;
+    justify-content: center;
+    position: absolute;
+    width: 100%;
+}
+
+.settings-container .settings, .settings-container a {
     background-color: #d9dbdd;
     border: none;
     border-radius:50%;
-    bottom:5px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     color: #6f7174;
+    cursor: pointer;
     font-size:2em;
     margin:10px;
     position:fixed;
@@ -281,8 +294,34 @@ input::-webkit-inner-spin-button {
     width: 45px;
 }
 
-.settings:hover {
+.settings-container .settings:hover, .settings-container a:hover {
     background-color: #c1c5cc;
+}
+
+.report {
+    bottom: 60px;
+    height: 42.67px;
+    text-decoration: none;
+}
+
+.report-icon {
+    border: solid #6f7174 2px;
+    border-radius: 5px;
+    height: 20px;
+    justify-self: center;
+    margin: 10px;
+    width: 20px;
+}
+
+.report-banner {
+    background-color: #6f7174;
+    border-radius: 2px 2px 0px 0px;
+    height: 5px;
+    width: 100%;
+}
+
+.settings {
+    bottom:5px;
 }
 
 .settings-popup {
@@ -290,13 +329,38 @@ input::-webkit-inner-spin-button {
     border-radius:10px;
     bottom:5px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    display:none;
-    height:50%;
+    display: flex;
+    flex-direction: column;
+    height:40vh;
+    min-height: 200px;
+    justify-content: space-between;
     margin:10px;
-    right:75px;
     padding:10px;
     position:fixed;
+    right:75px;
+    text-align: center;
     width:225px;
+}
+
+.settings-popup button {
+    background-color: #d9dbdd;
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.25);
+    cursor: pointer;
+    margin: 5px;
+    padding: 8px;
+    text-align: center;
+}
+
+.settings-popup button:hover {
+    background-color: #c1c5cc;
+}
+
+.color-scheme-editor {
+    bottom:5px;
+    position: fixed;
+    right:75px;
 }
 
 @media screen and (max-width: 900px) {
@@ -305,5 +369,19 @@ input::-webkit-inner-spin-button {
     }
     .timers-container {
         padding: 40px 25px;
+    }
+}
+
+@media screen and (max-width: 470px) {
+    .color-scheme-editor {
+        position: static;
+        margin-bottom: 125px !important; 
+    }
+}
+
+@media screen and (max-width: 330px) {
+    .settings-popup {
+        position: static;
+        margin-bottom: 125px;
     }
 }

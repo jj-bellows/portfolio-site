@@ -1,0 +1,33 @@
+.settings-container {
+    bottom: 0px;
+    display: flex;
+    height: auto;
+    justify-content: center;
+    position: absolute;
+    width: 100%;
+}
+
+.settings-container a {
+    background-color: #d9dbdd;
+    border: none;
+    border-radius:50%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    color: #6f7174;
+    cursor: pointer;
+    font-size:1.5em;
+    height: 42.67px;
+    margin:14px;
+    position:fixed;
+    right:5px;
+    text-decoration: none;
+    width: 45px;
+}
+
+.settings-container a:hover {
+    background-color: #c1c5cc;
+}
+
+.account-home {
+    bottom: 5px;
+    text-align: center;
+}

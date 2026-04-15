@@ -6,8 +6,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Accountability App</title>
         <link rel="icon" href="https://fav.farm/⏱%EF%B8%8F" />
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/simplebar@5.3.0/dist/simplebar.min.css?v=20260319225341">
-        <link rel="stylesheet" href="account_app.css?v=20260319225341">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/simplebar@5.3.0/dist/simplebar.min.css?v=20260414221009">
+        <link rel="stylesheet" href="account_app.css?v=20260414221009">
+        <link rel="stylesheet" href="colorPicker.css?v=20260414221009">
     </head>
     <body>
         <nav class="top">
@@ -42,19 +43,31 @@
             <div class="timers-container">
                 <button class="add-timer" id="add-timer">+</button>
             </div>
-            <button class="settings" onClick="toggleSettings()" >⏣</button>
-            <div class="settings-popup">
-                <p>Time Display</p>
-                <form>
-                    <input type="radio" id="HMS" name="time" value="1" checked>
-                    <label for="HMS">HH:MM:SS</label>
-                    <br>
-                    <input type="radio" id="Decimal" name="time" value="0">
-                    <label for="Decimal">Decimal Hours</label>
-                </form>
-            </div>
+            <div class="settings-container">
+                <div class="settings-popup hidden">
+                    <div>
+                        <p>Time Display</p>
+                        <form>
+                            <br>
+                            <input type="radio" id="HMS" name="time" value="1" checked>
+                            <label for="HMS">HH:MM:SS</label>
+                            <br>
+                            <input type="radio" id="Decimal" name="time" value="0">
+                            <label for="Decimal">Decimal Hours</label>
+                        </form>
+                    </div>
+                    <div>
+                        <button class="edit-colors">Edit Color Scheme</button>
+                        <button class="save-button">Save Choices</button>
+                    </div>
+                </div>
+                <a  class="report" href="account_report.html"><div class="report-icon"><div class="report-banner"></div></div></a>
+                <button class="settings" onClick="toggleSettings()" >⏣</button>
+            </div>    
         </content>
-        <script src="https://cdn.jsdelivr.net/npm/simplebar@5.3.0/dist/simplebar.min.js?v=20260319225341"></script>
-        <script src="account_app.js?v=20260319225341"></script>
+        <script src="https://cdn.jsdelivr.net/npm/simplebar@5.3.0/dist/simplebar.min.js?v=20260414221009"></script>
+        <script src="account_app.js?v=20260414221009"></script>
+        <script src="settings.js?v=20260414221009"></script>
+        <script src="colorPicker.js?v=20260414221009"></script>
     </body>
 </html>

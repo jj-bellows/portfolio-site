@@ -1,18 +1,22 @@
 //Idea save a record of time punches in as well as out
-
+const localSettings = JSON.parse(localStorage.getItem("settings"));
+const userSettings = localSettings != null ? localSettings : {};
 const navbar = document.querySelector('nav')
 const content = document.querySelector('.content');
-const settingsPopUp = document.querySelector('.settings-popup');
-const settingsForm = document.querySelector('form');
 const leaderboard = document.querySelector('.activity-report');
 const timersContainer = document.querySelector('.timers-container');
 const addTimerButton = document.getElementById('add-timer');
-const colors = ['#FBAD58', '#EC81AD', '#B2323F', '#1BA0F2',
+const colors = []
+if(userSettings["colorScheme"] != null) {
+    colors.push(...userSettings["colorScheme"]);
+} else {
+    const defaultColors = ['#FBAD58', '#EC81AD', '#B2323F', '#1BA0F2',
     '#9966FF', '#447231','#DAC328', '#E4543C','#AA770C','#9CBCB1',
     '#D2EDFF','#FFC311','#115B98','#8D94DA','#275650'];
+    colors.push(...defaultColors);
+}
 let ticking = false;
 let navHidden = false;
-let settingsVisible = false;
 let timeDisplay = 1;
 let previousList = [];
 let previousUnaccountedTimeString = "0";
@@ -22,8 +26,8 @@ let day = new Date().setHours(0,0,0,0);
 
 function versionLoader(timeStamp) {
     let record = JSON.parse(localStorage.getItem(timeStamp));
-    if(record != null && record.hasOwnProperty('version')) {
-        if(record.activityList != 0) {
+    if (record != null && record.hasOwnProperty('version')) {
+        if (record.activityList != 0) {
             record = record.activityList;
         } else {
             record = null;
@@ -359,19 +363,9 @@ function createTimer(name = "Activity", time =  0, color = null) {
     }
 }
 
-function toggleSettings() {
-    if (settingsVisible) {
-        settingsPopUp.style.display = "none"
-        settingsVisible = false;
-    } else {
-        settingsPopUp.style.display = "inline";
-        settingsVisible = true;
-    }
-}
-
+//On Page Load
 const backup = versionLoader(day);
 
-//On Page Load
 if (backup != null) {
     backup.forEach(timer => {
         createTimer(timer.name, timer.time, timer.color);
@@ -419,18 +413,4 @@ window.addEventListener('mousemove', (e) => {
         });
         ticking = true;
     }
-});
-
-//Settings Functionality
-settingsForm.addEventListener("input", (e) => {
-    timeDisplay = e.target.value;
-    timersContainer.childNodes.forEach(child => {
-        if(child.nodeName == "DIV") {
-            if(child != activeTimer) {
-                const formattedTime = formatTime(child.elapsedTime/1000);
-                displayTime(formattedTime, child.inputs);
-            }
-        };
-    });
-    update();
 });
